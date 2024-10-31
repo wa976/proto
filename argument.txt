@@ -1,0 +1,30 @@
+## INTERSPEECH
+
+## AST
+python main.py --seed 1 --dataset icbhi --class_split lungsound --epochs 30 --batch_size 16 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --audioset_pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method ce --mix_beta 1.0 --n_cls 4 --data_folder './data/icbhi_dataset/' --tag ce2 --device_mode mixed 
+
+
+## AST Patchmix
+python main.py --seed 1 --dataset icbhi --class_split lungsound --epochs 30 --batch_size 16 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --audioset_pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method patchmix_cl --mix_beta 1.0 --n_cls 4 --data_folder './data/icbhi_dataset/' --tag icassp_patchmix --device_mode mixed 
+
+
+## CAAST
+python main.py --seed 1 --dataset icbhi --class_split lungsound --epochs 30 --batch_size 16 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --audioset_pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method proto --model proto --mix_beta 1.0 --n_cls 4 --data_folder './data/icbhi_dataset/' --tag proto1 --device_mode mixed --fusion_type concat
+
+
+## AST eval + confusion matrix
+
+python main.py --seed 1 --dataset icbhi --class_split lungsound --n_cls 4 --batch_size 32 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method ce --mix_beta 1.0 --eval --pretrained_ckpt './save/icbhi_ast_fms_ce_icassp_fms60/best.pth' --tag confusion --data_folder './data/icbhi_dataset/' --model ast_fms --confusion_matrix --device_mode mixed
+
+
+
+## AST eval + tsne
+
+python main.py --seed 1 --dataset icbhi --class_split lungsound --n_cls 4 --batch_size 32 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method ce --mix_beta 1.0 --eval --pretrained_ckpt './save/icbhi_ast_fms_ce_icassp_fms60/best.pth' --tag tsne --data_folder './data/icbhi_dataset/' --model ast_fms --visualize_embeddings --device_mode mixed 
+
+
+## AST(finetuning) eval + tsne
+python main.py --seed 1 --dataset icbhi --class_split lungsound --n_cls 4 --batch_size 16 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --desired_length 5 --pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method ce --mix_beta 1.0 --eval --pretrained_ckpt './save/icbhi_ast_ce_icassp_ast/best_epoch_1.pth' --tag tsne_ast --data_folder './data/icbhi_dataset/' --model ast --visualize_embeddings --device_mode mixed
+
+
+python main.py --dataset icbhi --class_split lungsound  --batch_size 32 --optimizer adam --learning_rate 5e-5 --weight_decay 1e-6 --audioset_pretrained --pad_types repeat --resz 1 --n_mels 128 --ma_update --ma_beta 0.5 --from_sl_official --method ce --mix_beta 1.0 --n_cls 4 --data_folder './data/icbhi_dataset/' --device_mode mixed --frequency_stylemix --balance_sampler --model ast_fms --epochs 150 --desired_length 6 --p 0.2 --alpha_mix 0.5 --tag icassp_fms64 --seed 2
